@@ -1,0 +1,365 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>INFOSIL | Portal académico</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="logo">I</div>
+        <div>
+          <strong>INFOSIL</strong>
+          <small>Portal académico</small>
+        </div>
+      </div>
+
+      <div class="student">
+        <div class="avatar">DQ</div>
+        <div>
+          <strong>David Quintero</strong>
+          <small>Estudiante · 5.º ciclo</small>
+        </div>
+      </div>
+
+      <nav class="navigation">
+        <button class="nav-button active" data-view="home">⌂ Inicio</button>
+        <button class="nav-button" data-view="grades">▤ Mis notas</button>
+        <button class="nav-button" data-view="record">▣ Récord académico</button>
+        <button class="nav-button" data-view="comparison">◫ Antes y después</button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <span class="dot"></span> Prototipo de demostración
+        <small>Datos ficticios para evaluación UX</small>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">PORTAL DEL ESTUDIANTE</p>
+          <h1 id="page-title">Mi portal académico</h1>
+        </div>
+        <div class="avatar">DQ</div>
+      </header>
+
+      <!-- INICIO -->
+      <section class="view active" id="view-home">
+        <div class="welcome">
+          <p class="eyebrow light">TU INFORMACIÓN, MÁS CERCA</p>
+          <h2>Hola, Grupo 4</h2>
+          <p>Consulta tus notas actuales o comprueba tu historial académico.</p>
+        </div>
+
+        <div class="section-heading">
+          <p class="eyebrow">ACCESOS DIRECTOS</p>
+          <h2>¿Qué deseas consultar?</h2>
+        </div>
+
+        <div class="action-grid">
+          <button class="action-card" data-view="grades">
+            <span class="card-icon">▤</span>
+            <strong>Mis notas</strong>
+            <p>Consulta las evaluaciones y notas del ciclo actual.</p>
+            <span class="card-link">Consultar notas →</span>
+          </button>
+
+          <button class="action-card" data-view="record">
+            <span class="card-icon green-icon">▣</span>
+            <strong>Récord académico</strong>
+            <p>Busca cursos registrados en ciclos anteriores.</p>
+            <span class="card-link">Ver récord →</span>
+          </button>
+        </div>
+
+        <div class="notice">
+          <strong>ⓘ</strong>
+          <p>Los nombres de cursos y los estados se muestran con texto e iconos, no solo mediante colores.</p>
+        </div>
+      </section>
+
+      <!-- MIS NOTAS -->
+      <section class="view" id="view-grades" hidden>
+        <div class="section-heading">
+          <p class="eyebrow">CICLO ACTUAL</p>
+          <h2>Mis notas</h2>
+          <p class="muted">Consulta las evaluaciones sin abrir cada curso.</p>
+        </div>
+
+        <div class="toolbar">
+          <input id="grade-search" type="search"
+                 placeholder="Buscar curso o evaluación"
+                 aria-label="Buscar curso o evaluación">
+
+          <label>
+            Estado de la pantalla
+            <select id="grade-state">
+              <option value="success">Éxito</option>
+              <option value="loading">Cargando</option>
+              <option value="empty">Vacío</option>
+              <option value="error">Error</option>
+            </select>
+          </label>
+        </div>
+
+        <div id="grades-message" class="message" role="status" aria-live="polite" hidden></div>
+
+        <div id="grade-list" class="course-list">
+          <article class="course-card">
+            <div>
+              <h3>Matemática</h3>
+              <p>MAT-105 · 5.º ciclo</p>
+            </div>
+            <div class="grade">
+              <span>Evaluación 1</span>
+              <strong>16 <small>/ 20</small></strong>
+              <span class="success">✓ Nota registrada</span>
+            </div>
+            <button class="detail-button" data-course="Matemática">Ver detalle</button>
+          </article>
+
+          <article class="course-card">
+            <div>
+              <h3>Programación II</h3>
+              <p>INF-202 · 5.º ciclo</p>
+            </div>
+            <div class="grade">
+              <span>Práctica calificada 1</span>
+              <strong>18 <small>/ 20</small></strong>
+              <span class="success">✓ Nota registrada</span>
+            </div>
+            <button class="detail-button" data-course="Programación II">Ver detalle</button>
+          </article>
+
+          <article class="course-card">
+            <div>
+              <h3>Base de Datos</h3>
+              <p>INF-215 · 5.º ciclo</p>
+            </div>
+            <div class="grade">
+              <span>Evaluación 1</span>
+              <strong>—</strong>
+              <span class="pending">◷ Nota aún no disponible</span>
+            </div>
+            <button class="detail-button" data-course="Base de Datos">Ver estado</button>
+          </article>
+        </div>
+
+        <p class="footnote">Las notas son ficticias y solo sirven para demostrar el funcionamiento del prototipo.</p>
+      </section>
+
+      <!-- RECORD ACADÉMICO -->
+      <section class="view" id="view-record" hidden>
+        <div class="section-heading">
+          <p class="eyebrow">HISTORIAL ACADÉMICO</p>
+          <h2>Récord académico</h2>
+          <p class="muted">Encuentra cursos anteriores por nombre y ciclo.</p>
+        </div>
+
+        <div class="toolbar">
+          <input id="record-search" type="search"
+                 placeholder="Buscar por nombre o código"
+                 aria-label="Buscar por nombre o código">
+
+          <label>
+            Ciclo académico
+            <select id="cycle-filter">
+              <option value="all">Todos los ciclos</option>
+              <option value="4">4.º ciclo</option>
+              <option value="3">3.º ciclo</option>
+              <option value="2">2.º ciclo</option>
+            </select>
+          </label>
+
+          <label>
+            Estado de la pantalla
+            <select id="record-state">
+              <option value="success">Éxito</option>
+              <option value="loading">Cargando</option>
+              <option value="empty">Vacío</option>
+              <option value="error">Error</option>
+            </select>
+          </label>
+        </div>
+
+        <div id="record-message" class="message" role="status" aria-live="polite" hidden></div>
+
+        <div class="table-wrapper" id="record-table">
+          <table>
+            <thead>
+              <tr>
+                <th>Curso</th>
+                <th>Código</th>
+                <th>Ciclo</th>
+                <th>Estado</th>
+                <th>Acción</th>
+              </tr>
+            </thead>
+            <tbody id="record-list">
+              <tr data-cycle="4">
+                <td><strong>Fundamentos de Programación</strong></td>
+                <td>INF-104</td>
+                <td>4.º ciclo</td>
+                <td><span class="success">✓ Registrado</span></td>
+                <td><button class="detail-button" data-course="Fundamentos de Programación">Ver</button></td>
+              </tr>
+              <tr data-cycle="3">
+                <td><strong>Estructuras de Datos</strong></td>
+                <td>INF-203</td>
+                <td>3.º ciclo</td>
+                <td><span class="success">✓ Registrado</span></td>
+                <td><button class="detail-button" data-course="Estructuras de Datos">Ver</button></td>
+              </tr>
+              <tr data-cycle="2">
+                <td><strong>Matemática Básica</strong></td>
+                <td>MAT-101</td>
+                <td>2.º ciclo</td>
+                <td><span class="success">✓ Registrado</span></td>
+                <td><button class="detail-button" data-course="Matemática Básica">Ver</button></td>
+              </tr>
+              <tr data-cycle="4">
+                <td><strong>Comunicación Académica</strong></td>
+                <td>HUM-110</td>
+                <td>4.º ciclo</td>
+                <td><span class="success">✓ Registrado</span></td>
+                <td><button class="detail-button" data-course="Comunicación Académica">Ver</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div id="record-no-results" class="message" hidden>
+          No encontramos cursos con esos criterios. Prueba otro nombre o selecciona «Todos los ciclos».
+        </div>
+
+        <p class="footnote">Los cursos y códigos son datos ilustrativos, no información real del portal.</p>
+      </section>
+
+      <!-- ANTES Y DESPUÉS -->
+      <section class="view" id="view-comparison" hidden>
+        <div class="section-heading">
+          <p class="eyebrow">ETAPA 8 · CAPA VISUAL Y CIERRE</p>
+          <h2>Antes y después</h2>
+          <p class="muted">La información importante aparece antes y con mayor claridad.</p>
+        </div>
+
+        <div class="comparison-grid">
+          <article class="comparison-card">
+            <h3 class="before-title">ANTES</h3>
+            <div class="mock-screen before-screen">
+              <h3>Portal académico</h3>
+              <p>Información académica</p>
+              <div class="mock-row">
+                <strong>Cursos</strong>
+                <small>Abrir el curso para ver la nota</small>
+              </div>
+              <div class="mock-row">
+                <strong>Récord académico</strong>
+                <small>Recorrer ciclos anteriores</small>
+              </div>
+              <div class="mock-button disabled">Consultar</div>
+            </div>
+            <ul>
+              <li>Más pasos para encontrar una nota.</li>
+              <li>Dificultad para localizar cursos anteriores.</li>
+              <li>Códigos que el estudiante puede no reconocer.</li>
+            </ul>
+          </article>
+
+          <article class="comparison-card">
+            <h3 class="after-title">DESPUÉS</h3>
+            <div class="mock-screen">
+              <h3>Mis notas</h3>
+              <p>5.º ciclo · Ciclo actual</p>
+              <div class="mock-row grade-row">
+                <div><strong>Matemática</strong><small>Evaluación 1 · MAT-105</small></div>
+                <strong class="score">16/20</strong>
+              </div>
+              <div class="mock-row grade-row">
+                <div><strong>Programación II</strong><small>Práctica calificada 1</small></div>
+                <strong class="score">18/20</strong>
+              </div>
+              <button class="mock-button" data-view="record">Consultar récord académico →</button>
+            </div>
+            <ul>
+              <li>Notas visibles en la lista.</li>
+              <li>Búsqueda por curso y ciclo.</li>
+              <li>Nombres reconocibles y estados explícitos.</li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="panel">
+          <h2>Sistema visual y contraste</h2>
+          <p class="muted">Paleta de cinco colores para el prototipo.</p>
+          <div class="palette">
+            <div><span style="background:#203864"></span><strong>Azul</strong><code>#203864</code></div>
+            <div><span style="background:#FFFFFF;border:1px solid #CBD5E1"></span><strong>Blanco</strong><code>#FFFFFF</code></div>
+            <div><span style="background:#263238"></span><strong>Texto</strong><code>#263238</code></div>
+            <div><span style="background:#E8EEF6"></span><strong>Fondo</strong><code>#E8EEF6</code></div>
+            <div><span style="background:#16804A"></span><strong>Acento</strong><code>#16804A</code></div>
+          </div>
+          <div class="contrast-examples">
+            <div class="contrast dark-sample"><strong>Texto normal</strong><span>#263238 sobre blanco</span><b>≈ 13:1</b></div>
+            <div class="contrast blue-sample"><strong>Botón principal</strong><span>Blanco sobre azul</span><b>≈ 11:1</b></div>
+            <div class="contrast secondary-sample"><strong>Texto secundario</strong><span>#475569 sobre blanco</span><b>≈ 7:1</b></div>
+          </div>
+          <p class="footnote">Ratios aproximados: verificar los colores definitivos con WebAIM Contrast Checker. Mínimos WCAG AA: 4,5:1 para texto normal y 3:1 para texto grande.</p>
+        </div>
+
+        <div class="panel">
+          <h2>Tres recomendaciones finales</h2>
+          <article class="recommendation">
+            <span>01</span>
+            <div>
+              <h3>Mostrar las notas directamente en la lista de cursos.</h3>
+              <p><strong>Evidencia:</strong> según el documento, 4 de 4 participantes encontraron la nota al entrar al detalle del curso.</p>
+              <p><strong>Indicador:</strong> número de clics para consultar una nota y porcentaje de tareas completadas sin ayuda.</p>
+            </div>
+          </article>
+          <article class="recommendation">
+            <span>02</span>
+            <div>
+              <h3>Facilitar la búsqueda de cursos anteriores por ciclo y nombre.</h3>
+              <p><strong>Evidencia:</strong> 2 de 4 participantes tuvieron dificultades para ubicar el curso anterior.</p>
+              <p><strong>Indicador:</strong> tiempo de búsqueda y porcentaje que encuentra el curso correcto.</p>
+            </div>
+          </article>
+          <article class="recommendation">
+            <span>03</span>
+            <div>
+              <h3>Mostrar el nombre reconocible del curso junto al código.</h3>
+              <p><strong>Evidencia:</strong> 4 de 4 participantes observaron códigos internos distintos del nombre que usan.</p>
+              <p><strong>Indicador:</strong> porcentaje que identifica correctamente el curso sin ayuda.</p>
+            </div>
+          </article>
+          <p class="footnote">Confirma las cifras con las tablas originales del equipo y vuelve a probar el prototipo para medir las mejoras.</p>
+        </div>
+      </section>
+
+      <footer class="footer">
+        <span>INFOSIL · Prototipo UX</span>
+        <span>Datos de demostración; no conectado al sistema real</span>
+      </footer>
+    </main>
+  </div>
+
+  <dialog id="detail-dialog">
+    <button class="close-dialog" id="close-dialog" aria-label="Cerrar">×</button>
+    <p class="eyebrow">DETALLE ACADÉMICO</p>
+    <h2 id="dialog-title">Detalle del curso</h2>
+    <p id="dialog-message"></p>
+    <p class="footnote">Esta pantalla usa datos ficticios y no consulta el sistema real de INFOSIL.</p>
+    <button class="primary-button" id="dialog-done">Entendido</button>
+  </dialog>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="script.js"></script>
+</body>
+</html>
